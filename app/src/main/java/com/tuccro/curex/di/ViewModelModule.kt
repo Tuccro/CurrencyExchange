@@ -2,9 +2,12 @@ package com.tuccro.curex.di
 
 import androidx.work.WorkManager
 import com.tuccro.curex.ui.activity.main.MainActivityViewModel
-import com.tuccro.curex.ui.screens.WalletViewModel
+import com.tuccro.curex.ui.screens.splash.SplashViewModel
+import com.tuccro.curex.ui.screens.wallet.WalletViewModel
+import com.tuccro.domain.usecase.CalculateExchangeUseCase
 import com.tuccro.domain.usecase.GetAllBalancesUseCase
 import com.tuccro.domain.usecase.GetCurrencyRatesFlowUseCase
+import com.tuccro.domain.usecase.ProcessExchangeUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,9 +22,26 @@ object ViewModelModule {
     @Singleton
     fun provideWalletViewModel(
         getCurrencyRatesFlowUseCase: GetCurrencyRatesFlowUseCase,
-        getAllBalancesUseCase: GetAllBalancesUseCase
+        getAllBalancesUseCase: GetAllBalancesUseCase,
+        calculateExchangeUseCase: CalculateExchangeUseCase,
+        processExchangeUseCase: ProcessExchangeUseCase
     ): WalletViewModel {
-        return WalletViewModel(getCurrencyRatesFlowUseCase, getAllBalancesUseCase)
+        return WalletViewModel(
+            getCurrencyRatesFlowUseCase,
+            getAllBalancesUseCase,
+            calculateExchangeUseCase,
+            processExchangeUseCase
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideSplashViewModel(
+        getCurrencyRatesFlowUseCase: GetCurrencyRatesFlowUseCase
+    ): SplashViewModel {
+        return SplashViewModel(
+            getCurrencyRatesFlowUseCase
+        )
     }
 
     @Provides

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">CurEx</string>
+
+    <string name="currency_exchange">CURRENCY EXCHANGE</string>
+    <string name="sell">Sell</string>
+    <string name="receive">Receive</string>
 </resources>

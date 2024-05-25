@@ -1,8 +1,16 @@
-package com.tuccro.curex.ui.screens
+package com.tuccro.curex.ui.screens.wallet
 
-import androidx.compose.foundation.layout.*
+import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -20,7 +28,27 @@ fun WalletScreen() {
     val viewModel: WalletViewModel = hiltViewModel()
     val balanceList by viewModel.combinedList.collectAsState()
 
-    BalancesDisplay(balanceList)
+    val allCurrencies = balanceList.map { it.currency }
+    val sellCurrency by viewModel.sellCurrency.collectAsState()
+    val sellSum by viewModel.sellSum.collectAsState()
+
+    val receiveCurrency by viewModel.receiveCurrency.collectAsState()
+    val receiveSum by viewModel.receiveSum.collectAsState()
+
+    Column(modifier = Modifier.fillMaxSize()) {
+        BalancesDisplay(balanceList)
+
+        CurrencyExchangeView(
+            currencies = allCurrencies,
+            sellCurrency = sellCurrency,
+            sellSum = sellSum,
+            receiveCurrency = receiveCurrency,
+            receiveSum = receiveSum,
+            selectSellCurrency = { viewModel.setSellCurrency(it) },
+            selectReceiveCurrency = { viewModel.setReceiveCurrency(it) },
+            setSellSum = { viewModel.setSellSum(it) }
+        )
+    }
 }
 
 @Composable
@@ -36,6 +64,7 @@ fun BalancesDisplay(balances: List<Balance>) {
     }
 }
 
+@SuppressLint("DefaultLocale")
 @Composable
 fun BalanceItem(balance: Balance) {
     Surface(
@@ -50,7 +79,10 @@ fun BalanceItem(balance: Balance) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(text = balance.currency, style = MaterialTheme.typography.titleMedium)
-            Text(text = String.format("%.2f", balance.amount), style = MaterialTheme.typography.bodyLarge)
+            Text(
+                text = String.format("%.2f", balance.amount),
+                style = MaterialTheme.typography.bodyLarge
+            )
         }
     }
 }
