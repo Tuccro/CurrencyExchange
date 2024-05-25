@@ -13,9 +13,10 @@ class SettingsRepositoryImpl @Inject constructor(private val settingsStore: Sett
     }
 
     override suspend fun getFee(): Double {
-        return if (settingsStore.getExchangesCount() >= settingsStore.getFirstPaidExchangeNumber()) 0.0
-        else
+        return if (settingsStore.getExchangesCount() + 1 >= settingsStore.getFirstPaidExchangeNumber())
             settingsStore.getExchangeFeePercent()
+        else
+            0.0
     }
 
     override suspend fun increaseExchangesCount() {

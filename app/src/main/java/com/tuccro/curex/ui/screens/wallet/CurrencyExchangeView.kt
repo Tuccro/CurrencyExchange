@@ -39,6 +39,7 @@ fun CurrencyExchangeView(
             .fillMaxWidth()
             .padding(16.dp)
     ) {
+
         Text(
             text = stringResource(id = R.string.currency_exchange),
             style = MaterialTheme.typography.labelSmall.copy(
@@ -65,7 +66,9 @@ fun CurrencyExchangeView(
 
         HorizontalDivider(
             thickness = 0.5.dp,
-            color = Color.Gray
+            color = Color.Gray,
+            modifier = Modifier
+                .padding(start = 56.dp)
         )
 
         Spacer(modifier = Modifier.height(16.dp))

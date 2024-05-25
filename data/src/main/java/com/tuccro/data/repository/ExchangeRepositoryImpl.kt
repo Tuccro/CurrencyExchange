@@ -52,9 +52,11 @@ class ExchangeRepositoryImpl @Inject constructor(
                 walletRepository.insertBalance(
                     Balance(exchangeRequest.currencyFrom, newBalanceFrom)
                 )
+
                 walletRepository.insertBalance(
                     Balance(exchangeRequest.currencyTo, newBalanceTo)
                 )
+
                 settingsRepository.increaseExchangesCount()
                 result
             }

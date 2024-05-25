@@ -1,6 +1,7 @@
 package com.tuccro.curex.ui.screens.wallet
 
-import android.util.Log
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tuccro.domain.model.Balance
@@ -47,15 +48,50 @@ class WalletViewModel @Inject constructor(
     private val _receiveSum = MutableStateFlow(DEFAULT_SELL_SUM)
     val receiveSum: StateFlow<Double> = _receiveSum
 
-    private val _calculateExchangeResult = MutableStateFlow<ExchangeResponse?>(null)
-    val calculateExchangeResult: StateFlow<ExchangeResponse?> = _calculateExchangeResult
+    private val _exchangeResult =
+        MutableStateFlow<Pair<ExchangeRequest, ExchangeResponse>?>(null)
+    val exchangeResult: StateFlow<Pair<ExchangeRequest, ExchangeResponse>?> =
+        _exchangeResult
 
-    var initialized = false
+    private val _submitButtonActive = mutableStateOf(true)
+    val submitButtonActive: State<Boolean> = _submitButtonActive
+
+    private var initialized = false
 
     init {
         observeCurrencyRates()
         observeBalances()
         combineFlows()
+    }
+
+    fun submit() {
+        _submitButtonActive.value = false
+
+        viewModelScope.launch {
+
+            val currencyFrom = sellCurrency.value
+            val currencyTo = receiveCurrency.value
+
+            val request = ExchangeRequest(
+                balanceFrom = balances.value.firstOrNull { it.currency == currencyFrom }?.amount
+                    ?: 0.0,
+                balanceTo = balances.value.firstOrNull { it.currency == currencyTo }?.amount
+                    ?: 0.0,
+                currencyFrom = currencyFrom,
+                sum = sellSum.value,
+                currencyTo = currencyTo,
+                currencyRates = currencyRates.value!!
+            )
+
+            val result = processExchangeUseCase.invoke(request)
+
+            _exchangeResult.value = request to result
+
+        }.invokeOnCompletion { _submitButtonActive.value = true }
+    }
+
+    fun closeAlert() {
+        _exchangeResult.value = null
     }
 
     fun setSellCurrency(currency: String) {
