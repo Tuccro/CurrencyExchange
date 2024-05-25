@@ -55,6 +55,7 @@ class ExchangeRepositoryImpl @Inject constructor(
                 walletRepository.insertBalance(
                     Balance(exchangeRequest.currencyTo, newBalanceTo)
                 )
+                settingsRepository.increaseExchangesCount()
                 result
             }
         }
@@ -69,10 +70,11 @@ class ExchangeRepositoryImpl @Inject constructor(
         return if (currencyFrom == base)
             rates.getValue(currencyTo)
         else if (currencyTo == base)
-            rates.getValue(currencyFrom)
+            1.0 / rates.getValue(currencyFrom)
         else {
             // calculate cross-rate
-            rates.getValue(currencyFrom).times(rates.getValue(currencyTo))
+            // convert to base currency and then as usual
+            (1.0 / rates.getValue(currencyFrom)).times(rates.getValue(currencyTo))
         }
     }
 }
