@@ -28,7 +28,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.tuccro.CurEx.R
+import com.tuccro.curex.R
 import com.tuccro.curex.ui.theme.BackgroundDark
 import com.tuccro.curex.ui.theme.ButtonShape
 import com.tuccro.curex.ui.theme.PrimaryLight

@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.tuccro.CurEx"
+    namespace = Versions.Common.namespace_data
     compileSdk = Versions.SDKVersions.compileSdk
 
     compileOptions {

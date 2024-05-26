@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.tuccro.CurEx"
+    namespace = Versions.Common.namespace_app
     compileSdk = Versions.SDKVersions.compileSdk
 
     defaultConfig {
-        applicationId = "com.tuccro.CurEx"
+        applicationId = Versions.Common.applicationId
         minSdk = Versions.SDKVersions.minSdk
         targetSdk = Versions.SDKVersions.targetSdk
         versionCode = Versions.AppVersions.versionCode

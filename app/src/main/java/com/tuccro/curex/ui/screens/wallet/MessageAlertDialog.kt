@@ -6,7 +6,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.window.DialogProperties
-import com.tuccro.CurEx.R
+import com.tuccro.curex.R
 import com.tuccro.domain.model.exchange.ExchangeRequest
 import com.tuccro.domain.model.exchange.ExchangeResponse
 import com.tuccro.domain.model.exchange.Status
