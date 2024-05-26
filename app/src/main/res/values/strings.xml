@@ -9,4 +9,5 @@
     <string name="exchange_error">Not enough money on your %s account!</string>
     <string name="exchange_success">You have converted %s to %s.</string>
     <string name="exchange_fee">Commission Fee - %s.</string>
+    <string name="loading">LOADING</string>
 </resources>

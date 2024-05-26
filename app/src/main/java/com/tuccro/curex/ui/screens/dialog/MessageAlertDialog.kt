@@ -1,4 +1,4 @@
-package com.tuccro.curex.ui.screens.wallet
+package com.tuccro.curex.ui.screens.dialog
 
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -43,7 +43,7 @@ fun ShowExchangeResultDialog(
                 )
                 stringResource(id = R.string.exchange_fee, fee)
             } else ""
-            firstPart + secondPart
+            "$firstPart $secondPart"
         }
 
         Status.NOT_ENOUGH_MONEY -> stringResource(
