@@ -96,7 +96,7 @@ fun WalletScreen() {
                 .fillMaxWidth()
                 .padding(16.dp)
         ) {
-            Text(text = "SUBMIT")
+            Text(text = stringResource(R.string.submit))
         }
     }
 }

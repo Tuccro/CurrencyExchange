@@ -10,4 +10,5 @@
     <string name="exchange_success">You have converted %s to %s.</string>
     <string name="exchange_fee">Commission Fee - %s.</string>
     <string name="loading">LOADING</string>
+    <string name="submit">SUBMIT</string>
 </resources>
